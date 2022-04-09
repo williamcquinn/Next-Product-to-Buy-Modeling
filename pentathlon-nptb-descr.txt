@@ -1,0 +1,32 @@
+## Pentathon III: Next Product To Buy 
+
+The available data is based on the last e-mail sent to each Pentathlon customer. Hence, an observation or row in the data is a "customer–promotional e-mail" pair. The data contains the following basic demographic information available to Pentathlon:
+
+* "age": Customer age(coded in 4 buckets:"<30", "30 to 44", "45 to 59", and ">=60") 
+* "gender": Gender coded as F or M
+* "income”: Income in Euros, rounded to the nearest €5,000
+* "education": Percentage of college graduates in the customer's neighborhood, coded from 0-100
+* "children": Average number of children in the customer's neighborhood
+
+The data also contains basic historical information about customer purchases, specifically, a department-specific frequency measure.
+
+* "freq_endurance–freq_racquet": Number of purchases in each department in the last year, excluding any purchase in response to the last email.
+
+The key outcome variables are:
+
+* "buyer": Did the customer click on the e-mail and complete a purchase within twodays of receiving the e-mail ("yes" or "no")?
+* "total_os": Total order size (in Euros) conditional on the customer having purchased (buyer == “yes”). This measures spending across all departments, not just the department that sent the message
+
+While of no importance for the prediction model, we also have data on which departments the customer ordered from when they purchased. This was captured in:
+
+* "endurance_os – racquet_os": Department-specific order size (in Euros). This was a breakdown of the total order size if buyer == "yes". The value was zero for most departments because customers rarely bought products from multiple departments on a single purchase occasion.
+
+Finally, Anna requested that her team divide the data into a training sample and a test sample using a 70 – 30 split. She suggested 70,000 observations in the training sample and 30,000 observations in the test sample. Anna requested the team sample more customers who purchased relative to those that did not purchase. She had learned that some analytical tools did a better job of scoring customers if the response variable had a similar number of “yes” and “no” values.
+
+To achieve a 50/50 split between buyers and non-buyers for the training and test sample, her team randomly picked 50,000 buyers and added 50,000 randomly sampled non-buyers. Given the actual average purchase rate of 1%, buyers in this training sample were oversampled by a factor of 50 (=0.5/0.01). The 100,000 customers were then randomly split into a training sample (70,000 customers) and a test sample (30,000 customers).
+
+In addition to the 100,000 customers used for training and test, Anna asked the team to add a representative sample consisting of another 100,000 customers. This sample was representative in that it was a true random sample of the population and therefore contained the average proportion of buyers, namely 1%. This sample would be used to determine the expected benefits from using a next-product-to-buy model. In summary, the dataset contains 200,000 customers.
+
+1. 70,000 in a training sample (training == 1) 
+2. 30,000 in a test sample (training == 0)
+3. 100,000 in a representative sample (use is.na(training) or representative == 1)
